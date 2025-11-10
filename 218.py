@@ -31,10 +31,41 @@ class Solution:
         # conquista: mescla os dois resultados
         return self._mesclar_skylines(skyline_esquerdo, skyline_direito)
 
-        pass
 
     def _mesclar_skylines(self, esq: List[List[int]], dir: List[List[int]]) -> List[List[int]]:
-        
-        #conquistar
 
-        pass
+        resultado = []
+        
+        altura_esq, altura_dir = 0, 0
+        
+        i, j = 0, 0
+        
+        n_esq, n_dir = len(esq), len(dir)
+        
+        while i < n_esq or j < n_dir:
+            
+            x_esq = esq[i][0] if i < n_esq else float('inf')
+            x_dir = dir[j][0] if j < n_dir else float('inf')
+            
+            x_atual = 0
+            
+            
+            if x_esq < x_dir:
+                x_atual, altura_esq = esq[i]
+                i += 1
+            elif x_dir < x_esq:
+                x_atual, altura_dir = dir[j]
+                j += 1
+            else: 
+                x_atual, altura_esq = esq[i]
+                _, altura_dir = dir[j]
+                i += 1
+                j += 1
+            
+            
+            nova_altura_max = max(altura_esq, altura_dir)
+            
+            
+            resultado.append([x_atual, nova_altura_max])
+                
+        return resultado
