@@ -34,6 +34,10 @@ class Solution:
 
     def _mesclar_skylines(self, esq: List[List[int]], dir: List[List[int]]) -> List[List[int]]:
 
+        """
+        Implementa a etapa "Conquistar" (Mesclar) do algoritmo.
+        Combina dois skylines (listas de pontos críticos) em um só.
+        """
         resultado = []
         
         altura_esq, altura_dir = 0, 0
@@ -49,7 +53,6 @@ class Solution:
             
             x_atual = 0
             
-            
             if x_esq < x_dir:
                 x_atual, altura_esq = esq[i]
                 i += 1
@@ -62,10 +65,9 @@ class Solution:
                 i += 1
                 j += 1
             
-            
             nova_altura_max = max(altura_esq, altura_dir)
             
-            
-            resultado.append([x_atual, nova_altura_max])
+            if not resultado or resultado[-1][1] != nova_altura_max:
+                resultado.append([x_atual, nova_altura_max])
                 
         return resultado
